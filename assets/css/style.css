@@ -1,4 +1,7 @@
-
+:root {
+    --blue: rgb(67, 94, 225);
+    --light-blue: rgb(162, 178, 255);
+}
 
 .title {
     text-align: center;
@@ -10,12 +13,14 @@
     justify-content: flex-end;
     background-color: var(--blue);
     padding: 10px;
+    margin: 1%;
 }
 
 #display-forecast {
     display: flex;
     justify-content: flex-end;
-    background-color: var(--blue);
+    background-color: var(--light-blue);
     padding: 10px;
+    margin: 1%;
 }
   
