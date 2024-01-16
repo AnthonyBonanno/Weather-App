@@ -10,7 +10,7 @@
 
 #display-current-weather {
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     background-color: var(--blue);
     padding: 10px;
     margin: 1%;
@@ -18,7 +18,7 @@
 
 #display-forecast {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     background-color: var(--light-blue);
     padding: 10px;
     margin: 1%;
