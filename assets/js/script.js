@@ -56,27 +56,27 @@ searchButton.addEventListener('click', function () {
                         weatherToday.append(twelvePMHourCityName, twelvePMHourDate, twelvePMHourTemp, twelvePMHourWind, twelvePMHourIcon, twelvePMHourHumidity)
                     }
                     else if (allHours == 12) {
-
-                        var twelvePMHourDate = document.createElement('li')
-                        var twelvePMHourCityName = document.createElement('li')
-                        var twelvePMHourTemp = document.createElement('li')
-                        var twelvePMHourWind = document.createElement('li')
-                        var twelvePMHourIcon = document.createElement('li')
-                        var twelvePMHourHumidity = document.createElement('li')
-                    
-                        twelvePMHourCityName.textContent = data.city.name
-                        twelvePMHourDate.textContent = data.list[i].dt_txt
-                        twelvePMHourTemp.textContent = data.list[i].main.temp
-                        twelvePMHourWind.textContent = data.list[i].wind.speed
-                        twelvePMHourIcon = data.list[i].weather[0].icon
-                        twelvePMHourHumidity = data.list[i].main.humidity
-                        forcast.append(twelvePMHourCityName, twelvePMHourDate, twelvePMHourTemp, twelvePMHourWind, twelvePMHourIcon, twelvePMHourHumidity)
+                        renderForcast(data.list[i])
                     }
                 }
             })
         });
 
 });
+
+// forcastWeatherData is equal to data.list[i]
+function renderForcast(forcastWeatherData) {
+    var twelvePMHourTemp = document.createElement('li')
+    var twelvePMHourWind = document.createElement('li')
+    var twelvePMHourIcon = document.createElement('li')
+    var twelvePMHourHumidity = document.createElement('li')
+
+    twelvePMHourTemp.textContent = forcastWeatherData.main.temp
+    twelvePMHourWind.textContent = forcastWeatherData.wind.speed
+    twelvePMHourIcon = forcastWeatherData.weather[0].icon
+    twelvePMHourHumidity = forcastWeatherData.main.humidity
+    forcast.append(twelvePMHourTemp, twelvePMHourWind, twelvePMHourIcon, twelvePMHourHumidity)
+}
 
 function saveCity(city) {
     localStorage.setItem(city)
