@@ -5,6 +5,7 @@
     padding: 2%;
 }
 
-#city-name {
-    
+.show-area {
+    border: 1px solid red;
 }
+  

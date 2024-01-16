@@ -1,10 +1,9 @@
 var inputSearcher = document.querySelector('#city-search')
 var searchButton = document.querySelector('#city-call')
 var forcast = document.querySelector('#display-next-4-days')
+var weatherToday = document.querySelector('#display-current-weather')
 
 var APIKey = '588a1fc5e1a8fe84e7a029e9f595566c'
-
-var weatherArray = [1,9,17,25,33]
 
 searchButton.addEventListener('click', function () {
 
@@ -36,54 +35,52 @@ searchButton.addEventListener('click', function () {
                 console.log(data.list[1].main.temp)
                 console.log(data.list[1].weather[0].icon)
                 // now contains weather etc
-                for (let i=0; i < data.list.length; i++) {
+                // 4th element is noon 
+                //
+                for (let i=3; i < data.list.length; i++) {
                     //console.log(data.list[i].dt_txt)
                     var allHours = data.list[i].dt_txt.slice(11,13);
                     //console.log(allHours);
 
-                    if(allHours === '12') {
-                        var twelvePMHourTemp = document.createElement('li')
-                        var twelvePMHourWind = document.createElement('li')
-
-                        twelvePMHourTemp.textContent = data.list[i].main.temp
-                        twelvePMHourWind.textContent = data.list[i].wind.speed
-                        console.log(allHours)
-                        forcast.append(twelvePMHourTemp, twelvePMHourWind)
+                     if (i == 3) {
+                        renderCurrentWeather(data.list[i])
                     }
+                    else if (allHours == 12) {
+                        renderForcast(data.list[i])
+                    }
+
+
                 }
             })
         });
 
 });
 
-function printForcast(data) {
-    console.log("Data:", data);
+// data is now equal to data.list[i], so 
+function renderCurrentWeather(currentWatherData) {
+    var twelvePMHourTemp = document.createElement('li')
+    var twelvePMHourWind = document.createElement('li')
+    var twelvePMHourIcon = document.createElement('li')
+    var twelvePMHourHumidity = document.createElement('li')
 
-    var forcastWeather = $('#display-next-4-days');
-
-    forcastWeather.empty();
-
-    // refer the below line to object fetched from the API
-    var mainTemp = data.items[0].volumeInfo.title
-
-    var mainIcon = $('<li>').text(`Temp: ${data.items[0].volumeInfo.publisher}`);
-
-    forcastWeather.append(mainTemp, mainIcon);
+    twelvePMHourTemp.textContent = currentWatherData.main.temp
+    twelvePMHourWind.textContent = currentWatherData.wind.speed
+    twelvePMHourIcon = currentWatherData.weather[0].icon
+    twelvePMHourHumidity = currentWatherData.main.humidity
+    forcast.append(twelvePMHourTemp, twelvePMHourWind, twelvePMHourIcon, twelvePMHourHumidity)
 }
 
-function printWeather(data) {
-    console.log("Data:", data);
+function renderForcast(forcastWeatherData) {
+    var twelvePMHourTemp = document.createElement('li')
+    var twelvePMHourWind = document.createElement('li')
+    var twelvePMHourIcon = document.createElement('li')
+    var twelvePMHourHumidity = document.createElement('li')
 
-    var currentWeather = $('#display-current-weather');
-
-    currentWeather.empty();
-
-    // refer the below line to object fetched from the API
-    var mainTemp = data.items[0].volumeInfo.title
-
-    var mainIcon = $('<li>').text(`Temp: ${data.items[0].volumeInfo.publisher}`);
-
-    currentWeather.append(mainTemp, mainIcon);
+    twelvePMHourTemp.textContent = forcastWeatherData.main.temp
+    twelvePMHourWind.textContent = forcastWeatherData.wind.speed
+    twelvePMHourIcon = forcastWeatherData.weather[0].icon
+    twelvePMHourHumidity = forcastWeatherData.main.humidity
+    forcast.append(twelvePMHourTemp, twelvePMHourWind, twelvePMHourIcon, twelvePMHourHumidity)
 }
 
 function saveCity(city) {
