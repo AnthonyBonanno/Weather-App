@@ -5,7 +5,17 @@
     padding: 2%;
 }
 
-.show-area {
-    border: 1px solid red;
+#display-current-weather {
+    display: flex;
+    justify-content: flex-end;
+    background-color: var(--blue);
+    padding: 10px;
+}
+
+#display-forecast {
+    display: flex;
+    justify-content: flex-end;
+    background-color: var(--blue);
+    padding: 10px;
 }
   
