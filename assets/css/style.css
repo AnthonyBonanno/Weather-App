@@ -1,11 +1,18 @@
 :root {
     --blue: rgb(67, 94, 225);
     --light-blue: rgb(162, 178, 255);
+    --dark-yellow: rgb(186, 187, 133);
+}
+
+body {
+    background-color: var(--dark-yellow);
 }
 
 .title {
     text-align: center;
     padding: 2%;
+    background-color: var(--light-blue);
+    border-radius: 50%;
 }
 
 #display-current-weather {
@@ -14,6 +21,8 @@
     background-color: var(--blue);
     padding: 10px;
     margin: 1%;
+    list-style-type: none;
+    border-style: solid;
 }
 
 #display-forecast {
@@ -22,5 +31,10 @@
     background-color: var(--light-blue);
     padding: 10px;
     margin: 1%;
+    list-style-type: none;
+    border-style: dotted;
 }
-  
+
+#saved-cities {
+    list-style-type: none;
+}
