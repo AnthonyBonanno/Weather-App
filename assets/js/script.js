@@ -7,7 +7,7 @@ var savedCities = document.querySelector('#saved-cities')
 var APIKey = '588a1fc5e1a8fe84e7a029e9f595566c'
 
 searchButton.addEventListener('click', function () {
-    getWeather();
+    getWeather(inputSearcher.value);
 });
 
 
@@ -36,9 +36,8 @@ function renderForcast(forecastWeatherData) {
     forecast.append(dayBox)
 }
 
-function getWeather() {
-    var cityName = inputSearcher.value
-    
+function getWeather(cityName) {
+
     var requestUrlCity = `https://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=${APIKey}`
 
     // fetches the API containing city names
@@ -90,6 +89,8 @@ function getWeather() {
             })
         });
 }
+
+
 
 function handleFormSubmission() {
 
