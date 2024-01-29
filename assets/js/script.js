@@ -90,7 +90,15 @@ function getWeather(cityName) {
         });
 }
 
+function handleButtonClick(event) {
+    // event.target
+    // event.currentTarget
+    var element = event.target;
+    var citySavedName = element.textContent;
+    getWeather(citySavedName)
+}
 
+savedCities.addEventListener('click', handleButtonClick)
 
 function handleFormSubmission() {
 
