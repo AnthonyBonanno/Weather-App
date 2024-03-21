@@ -14,6 +14,8 @@ searchButton.addEventListener('click', function () {
 
 // forcastWeatherData is equal to data.list[i]
 function renderForcast(forecastWeatherData) {
+
+
     var twelvePMHourDate = document.createElement('li')
     var twelvePMHourTemp = document.createElement('li')
     var twelvePMHourWind = document.createElement('li')
@@ -37,6 +39,8 @@ function renderForcast(forecastWeatherData) {
 }
 
 function getWeather(cityName) {
+
+    clearContent();
 
     var requestUrlCity = `https://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=${APIKey}`
 
@@ -88,6 +92,11 @@ function getWeather(cityName) {
                 }
             })
         });
+}
+
+function clearContent() {
+    forecast.innerHTML = "";
+    weatherToday.innerHTML = "";
 }
 
 function handleButtonClick(event) {
