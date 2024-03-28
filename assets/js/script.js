@@ -60,7 +60,7 @@ function getWeather(cityName) {
             })
             .then(function (data) {
                 // now data contains weather etc
-                handleFormSubmission(cityName);
+                checkStorage(cityName);
                 // this for loop checks the full length of data provided by the API, and then uses "slice" to isolate all data from 12pm (and for 12pm only)
                 for (let i=0; i < data.list.length; i++) {
                     var allHours = data.list[i].dt_txt.slice(11,13);
@@ -109,29 +109,26 @@ function handleButtonClick(event) {
 
 savedCities.addEventListener('click', handleButtonClick)
 
-function handleFormSubmission(city) {
 
-    var storage = JSON.parse(localStorage.getItem('searchedCity'));
-
-
-    if (!storage) {
-        var searchedCity = [];
-        searchedCity.push(city);
-        localStorage.setItem('searchedCity', JSON.stringify(searchedCity));
-        
-        var storageButton = document.createElement('button');
-        storageButton.textContent = city;
-        savedCities.append(storageButton);
-
-    } else if (!storage.includes(city)) {
-        storage.push(city);
-        localStorage.setItem('searchedCity', JSON.stringify(storage));
-            
-        var storageButton = document.createElement('button');
-        storageButton.textContent = city;
-        savedCities.append(storageButton);
+function checkStorage(city) {
+    // In the following line storage must store either the array from local storage if it exists OTHERWISE an empty array
+    const storage = JSON.parse(localStorage.getItem('searchedCity')) ? JSON.parse(localStorage.getItem('searchedCity')) : [];
+    if (!storage.includes(city)) {
+        addToStorage('searchedCity', storage, city)
     }
-};
+    createStorageButton(city);
+}
+
+function addToStorage(key, array, item) {
+    array.push(item);
+    localStorage.setItem(key, JSON.stringify(array));
+}
+
+function createStorageButton(buttonText) {
+    var storageButton = document.createElement('button');
+    storageButton.textContent = buttonText;
+    savedCities.append(storageButton);
+}
 
 var storage = JSON.parse(localStorage.getItem('searchedCity'));
 
