@@ -52,7 +52,7 @@ function getWeather(cityName) {
         .then(function (data) {
             console.log(data)
             
-            var requestUrlLat = `https://api.openweathermap.org/data/2.5/forecast?lat=${data[0].lat}&lon=${data[0].lon}&units=metric&appid=${APIKey}`
+            var requestUrlLat = `https://api.openweathermap.org/data/2.5/forecast?lat=${data[0].lat}&lon=${data[0].lon}&appid=${APIKey}&units=metric`
             // fetches the API containing the info for latitude and longnitude for the city name fetched by the previous fetch
             fetch(requestUrlLat) 
             .then(function (response) {
@@ -60,7 +60,7 @@ function getWeather(cityName) {
             })
             .then(function (data) {
                 // now data contains weather etc
-                handleFormSubmission();
+                handleFormSubmission(cityName);
                 // this for loop checks the full length of data provided by the API, and then uses "slice" to isolate all data from 12pm (and for 12pm only)
                 for (let i=0; i < data.list.length; i++) {
                     var allHours = data.list[i].dt_txt.slice(11,13);
@@ -109,17 +109,34 @@ function handleButtonClick(event) {
 
 savedCities.addEventListener('click', handleButtonClick)
 
-function handleFormSubmission() {
+function handleFormSubmission(city) {
 
-    var searchedCity = {
-        city: inputSearcher.value,
-    };
+    var storage = JSON.parse(localStorage.getItem('searchedCity'));
 
-    localStorage.setItem('searchedCity', JSON.stringify(searchedCity));
 
-    var storageButton = document.createElement('button');
+    if (!storage) {
+        var searchedCity = [];
+        searchedCity.push(city);
+        localStorage.setItem('searchedCity', JSON.stringify(searchedCity));
+        
+        var storageButton = document.createElement('button');
+        storageButton.textContent = city;
+        savedCities.append(storageButton);
 
-    storageButton.textContent = searchedCity.city;
-
-    savedCities.append(storageButton);
+    } else if (!storage.includes(city)) {
+        storage.push(city);
+        localStorage.setItem('searchedCity', JSON.stringify(storage));
+            
+        var storageButton = document.createElement('button');
+        storageButton.textContent = city;
+        savedCities.append(storageButton);
+    }
 };
+
+var storage = JSON.parse(localStorage.getItem('searchedCity'));
+
+for (let i=0; i<storage.length; i++) {
+    var storageButton = document.createElement('button');
+    storageButton.textContent = storage[i];
+    savedCities.append(storageButton);
+}
